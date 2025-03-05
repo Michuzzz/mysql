@@ -1,0 +1,133 @@
+ sudo mysql
+[sudo] password for student: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database MCA;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use MCA;
+Database changed
+mysql> create table STUDENT (ROLL_NO int primary key,NAME varchar(100),AGE int,COURSE varchar(100),YEAR int);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc STUDENT;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ROLL_NO | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(100) | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| COURSE  | varchar(100) | YES  |     | NULL    |       |
+| YEAR    | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> insert into STUDENT values (2,'ASHIQUE',25,'MCA',2022);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into STUDENT values (3,'ASHIYANA',21,'MCA',2024);
+Query OK, 1 row affected (0.01 sec)
+mysql> select * from STUDENT;
++---------+----------+------+--------+------+
+| ROLL_NO | NAME     | AGE  | COURSE | YEAR |
++---------+----------+------+--------+------+
+|       1 | AISHA    |   23 | MCA    | 2023 |
+|       2 | ASHIQUE  |   25 | MCA    | 2022 |
+|       3 | ASHIYANA |   21 | MCA    | 2024 |
++---------+----------+------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> rename table STUDENT to STUDENTS;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql&gt; desc STUDENTS;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ROLL_NO | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(100) | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| COURSE  | varchar(100) | YES  |     | NULL    |       |
+| YEAR    | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> alter table STUDENTS add MARK int;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc STUDENTS;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ROLL_NO | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(100) | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| COURSE  | varchar(100) | YES  |     | NULL    |       |
+| YEAR    | int          | YES  |     | NULL    |       |
+| MARK    | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from STUDENTS;
++---------+----------+------+--------+------+------+
+| ROLL_NO | NAME     | AGE  | COURSE | YEAR | MARK |
++---------+----------+------+--------+------+------+
+|       1 | AISHA    |   23 | MCA    | 2023 | NULL |
+|       2 | ASHIQUE  |   25 | MCA    | 2022 | NULL |
+|       3 | ASHIYANA |   21 | MCA    | 2024 | NULL |
++---------+----------+------+--------+------+------+
+3 rows in set (0.00 sec)
+mysql> update STUDENTS set MARK=82 where NAME='AISHA';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update STUDENTS set MARK=72 where NAME='ASHIQUE';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update STUDENTS set MARK=79 where NAME='ASHIYANA';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from STUDENTS;
++---------+----------+------+--------+------+------+
+| ROLL_NO | NAME     | AGE  | COURSE | YEAR | MARK |
++---------+----------+------+--------+------+------+
+|       1 | AISHA    |   23 | MCA    | 2023 |   82 |
+|       2 | ASHIQUE  |   25 | MCA    | 2022 |   72 |
+|       3 | ASHIYANA |   21 | MCA    | 2024 |   79 |
++---------+----------+------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table STUDENTS;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> desc STUDENTS;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ROLL_NO | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(100) | YES  |     | NULL    |       |
+| AGE     | int          | YES  |     | NULL    |       |
+| COURSE  | varchar(100) | YES  |     | NULL    |       |
+| YEAR    | int          | YES  |     | NULL    |       |
+| MARK    | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+mysql> drop table STUDENTS;
+Query OK, 0 rows affected (0.07 sec)
+ 
+mysql> desc STUDENTS;
+ERROR 1146 (42S02): Table 'MCA.STUDENTS' doesn't exist
+
+
+

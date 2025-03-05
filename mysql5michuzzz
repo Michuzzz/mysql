@@ -1,0 +1,263 @@
+student@student-Veriton-M200-H310:~$ SUDO MYSQL
+SUDO: command not found
+student@student-Veriton-M200-H310:~$ sudo mysql
+[sudo] password for student: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.41-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database company;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use company;
+Database changed
+mysql> create table emp(employee_id int primary key, name varchar(50),gender varchar (50),department varchar(50),education varchar(50),month_of_joining varchar(50),salary int);
+Query OK, 0 rows affected (0.15 sec)
+mysql> desc emp;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| employee_id      | int         | NO   | PRI | NULL    |       |
+| name             | varchar(50) | YES  |     | NULL    |       |
+| gender           | varchar(50) | YES  |     | NULL    |       |
+| department       | varchar(50) | YES  |     | NULL    |       |
+| education        | varchar(50) | YES  |     | NULL    |       |
+| month_of_joining | varchar(50) | YES  |     | NULL    |       |
+| salary           | int         | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+mysql> insert into emp values(1001,'ajay','m','engineering','doctoral','january',25);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into emp values(1002,'babloo','m','engineering','ug','february',23);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(1003,'chahavi','f','HR','pg','marc',15);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(1004,'dheeraj','m','HR','ug','december',15);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(1005,'evina','f','marketing','ug','march',16);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(1006,'fredy','m','sales','ug','december',10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(1007,'garima','f','sales','pg','march',10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into emp values(1008,'hans','m','admin','intermediate','november',8);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into emp values(1009,'ivanka','m','admin','pg','april',7);
+Query OK, 1 row affected (0.02 sec)
+mysql> insert into emp values(10010,'jai','m','peon','highschool','december',4);
+Query OK, 1 row affected (0.02 sec)
+ysql> desc emp;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| employee_id      | int         | NO   | PRI | NULL    |       |
+| name             | varchar(50) | YES  |     | NULL    |       |
+| gender           | varchar(50) | YES  |     | NULL    |       |
+| department       | varchar(50) | YES  |     | NULL    |       |
+| education        | varchar(50) | YES  |     | NULL    |       |
+| month_of_joining | varchar(50) | YES  |     | NULL    |       |
+| salary           | int         | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select*from emp;
++-------------+---------+--------+-------------+--------------+------------------+--------+
+| employee_id | name    | gender | department  | education    | month_of_joining | salary |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+|        1001 | ajay    | m      | engineering | doctoral     | january          |     25 |
+|        1002 | babloo  | m      | engineering | ug           | february         |     23 |
+|        1003 | chahavi | f      | HR          | pg           | marc             |     15 |
+|        1004 | dheeraj | m      | HR          | ug           | december         |     15 |
+|        1005 | evina   | f      | marketing   | ug           | march            |     16 |
+|        1006 | fredy   | m      | sales       | ug           | december         |     10 |
+|        1007 | garima  | f      | sales       | pg           | march            |     10 |
+|        1008 | hans    | m      | admin       | intermediate | november         |      8 |
+|        1009 | ivanka  | m      | admin       | pg           | april            |      7 |
+|       10010 | jai     | m      | peon        | highschool   | december         |      4 |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> update emp set gender='f' where name='ivanka';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set month='march' where name='chahavi';
+ERROR 1054 (42S22): Unknown column 'month' in 'field list'
+mysql> update emp set month_of_joining ='march' where name='chahavi';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary =12 where name='dheeraj';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update emp set education='pg' where name='hans';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set education='intermediate' where name='ivanka';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from emp;
++-------------+---------+--------+-------------+--------------+------------------+--------+
+| employee_id | name    | gender | department  | education    | month_of_joining | salary |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+|        1001 | ajay    | m      | engineering | doctoral     | january          |     25 |
+|        1002 | babloo  | m      | engineering | ug           | february         |     23 |
+|        1003 | chahavi | f      | HR          | pg           | march            |     15 |
+|        1004 | dheeraj | m      | HR          | ug           | december         |     12 |
+|        1005 | evina   | f      | marketing   | ug           | march            |     16 |
+|        1006 | fredy   | m      | sales       | ug           | december         |     10 |
+|        1007 | garima  | f      | sales       | pg           | march            |     10 |
+|        1008 | hans    | m      | admin       | pg           | november         |      8 |
+|        1009 | ivanka  | f      | admin       | intermediate | april            |      7 |
+|       10010 | jai     | m      | peon        | highschool   | december         |      4 |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+10 rows in set (0.00 sec)
+mysql> SELECT Department, SUM(Salary) FROM emp GROUP BY Department;
++-------------+-------------+
+| Department  | SUM(Salary) |
++-------------+-------------+
+| engineering |          48 |
+| HR          |          27 |
+| marketing   |          16 |
+| sales       |          20 |
+| admin       |          15 |
+| peon        |           4 |
++-------------+-------------+
+6 rows in set (0.00 sec)
+mysql> SELECT Department, SUM(Salary) FROM emp GROUP BY Department HAVING SUM(Salary) >= 20;
++-------------+-------------+
+| Department  | SUM(Salary) |
++-------------+-------------+
+| engineering |          48 |
+| HR          |          27 |
+| sales       |          20 |
++-------------+-------------+
+3 rows in set (0.00 sec)
+mysql> SELECT DISTINCT Department FROM emp;
++-------------+
+| Department  |
++-------------+
+| engineering |
+| HR          |
+| marketing   |
+| sales       |
+| admin       |
+| peon        |
++-------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(Salary) FROM emp;
++---------------+
+| COUNT(Salary) |
++---------------+
+|            10 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM emp  ;
++-------------+---------+--------+-------------+--------------+------------------+--------+
+| employee_id | name    | gender | department  | education    | month_of_joining | salary |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+|        1001 | ajay    | m      | engineering | doctoral     | january          |     25 |
+|        1002 | babloo  | m      | engineering | ug           | february         |     23 |
+|        1003 | chahavi | f      | HR          | pg           | march            |     15 |
+|        1004 | dheeraj | m      | HR          | ug           | december         |     12 |
+|        1005 | evina   | f      | marketing   | ug           | march            |     16 |
+|        1006 | fredy   | m      | sales       | ug           | december         |     10 |
+|        1007 | garima  | f      | sales       | pg           | march            |     10 |
+|        1008 | hans    | m      | admin       | pg           | november         |      8 |
+|        1009 | ivanka  | f      | admin       | intermediate | april            |      7 |
+|       10010 | jai     | m      | peon        | highschool   | december         |      4 |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+10 rows in set (0.00 sec)
+mysql> update emp set education='doctorial' where name='ajay';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM emp where department='engineering' and education='doctorial';
++-------------+------+--------+-------------+-----------+------------------+--------+
+| employee_id | name | gender | department  | education | month_of_joining | salary |
++-------------+------+--------+-------------+-----------+------------------+--------+
+|        1001 | ajay | m      | engineering | doctorial | january          |     25 |
++-------------+------+--------+-------------+-----------+------------------+--------+
+1 row in set (0.00 sec)
+mysql> SELECT * FROM emp where department='engineering' or education='doctorial';
++-------------+--------+--------+-------------+-----------+------------------+--------+
+| employee_id | name   | gender | department  | education | month_of_joining | salary |
++-------------+--------+--------+-------------+-----------+------------------+--------+
+|        1001 | ajay   | m      | engineering | doctorial | january          |     25 |
+|        1002 | babloo | m      | engineering | ug        | february         |     23 |
++-------------+--------+--------+-------------+-----------+------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name as First_Name,education as Qualification from emp;
++------------+---------------+
+| First_Name | Qualification |
++------------+---------------+
+| ajay       | doctorial     |
+| babloo     | ug            |
+| chahavi    | pg            |
+| dheeraj    | ug            |
+| evina      | ug            |
+| fredy      | ug            |
+| garima     | pg            |
+| hans       | pg            |
+| ivanka     | intermediate  |
+| jai        | highschool    |
++------------+---------------+
+10 rows in set (0.00 sec)
+mysql> SELECT * from emp where Name like 'A%';
++-------------+------+--------+-------------+-----------+------------------+--------+
+| employee_id | name | gender | department  | education | month_of_joining | salary |
++-------------+------+--------+-------------+-----------+------------------+--------+
+|        1001 | ajay | m      | engineering | doctorial | january          |     25 |
++-------------+------+--------+-------------+-----------+------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT department,SUM(salary) FROM emp WHERE education <> 'ug' GROUP BY department HAVING SUM(salary) >= 20;
++-------------+-------------+
+| department  | SUM(salary) |
++-------------+-------------+
+| engineering |          25 |
++-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT department,SUM(salary) FROM emp WHERE education != 'ug' GROUP BY department HAVING SUM(salary) >= 20;
++-------------+-------------+
+| department  | SUM(salary) |
++-------------+-------------+
+| engineering |          25 |
++-------------+-------------+
+1 row in set (0.00 sec)
+mysql> SELECT department, SUM(salary) FROM emp GROUP BY department HAVING SUM(salary) >= 15 ORDER BY SUM(salary) DESC;
++-------------+-------------+
+| department  | SUM(salary) |
++-------------+-------------+
+| engineering |          48 |
+| HR          |          27 |
+| sales       |          20 |
+| marketing   |          16 |
+| admin       |          15 |
++-------------+-------------+
+5 rows in set (0.00 sec)
+
+
+
