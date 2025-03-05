@@ -1,0 +1,103 @@
+mysql> CREATE DATABASE aishwarya;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE aishwarya;
+Database changed
+
+mysql> CREATE TABLE students(rollno INT PRIMARY KEY,name VARCHAR(50), age INT(10), course VARCHAR(50), year INT);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DESC students;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int(10)     | YES  |     | NULL    |       |
+| course | varchar(50) | YES  |     | NULL    |       |
+| year   | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE students ADD marks INT;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC students;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int(10)     | YES  |     | NULL    |       |
+| course | varchar(50) | YES  |     | NULL    |       |
+| year   | int(11)     | YES  |     | NULL    |       |
+| marks  | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> RENAME TABLE students  TO students_data;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO students_data(rollno,name,age,course,year,marks) VALUES(1,'Aishwarya',22,'MCA',2024,88);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO students_data(rollno,name,age,course,year,marks) VALUES(2,'Alka',23,'MCA',2024,85);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO students_data(rollno,name,age,course,year,marks) VALUES(3,'Swathi',21,'MCA',2024,60);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO students_data(rollno,name,age,course,year,marks) VALUES(4,'Gopika',22,'MCA',2024,80);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO students_data(rollno,name,age,course,year,marks) VALUES(5,'Aathira',24,'MCA',2024,83); 
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM students_data;
++--------+-----------+------+--------+------+-------+
+| rollno | name      | age  | course | year | marks |
++--------+-----------+------+--------+------+-------+
+|      1 | Aishwarya |   22 | MCA    | 2024 |    88 |
+|      2 | Alka      |   23 | MCA    | 2024 |    85 |
+|      3 | Swathi    |   21 | MCA    | 2024 |    60 |
+|      4 | Gopika    |   22 | MCA    | 2024 |    80 |
+|      5 | Aathira   |   24 | MCA    | 2024 |    83 |
++--------+-----------+------+--------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT*FROM students_data WHERE marks>82;
++--------+-----------+------+--------+------+-------+
+| rollno | name      | age  | course | year | marks |
++--------+-----------+------+--------+------+-------+
+|      1 | Aishwarya |   22 | MCA    | 2024 |    88 |
+|      2 | Alka      |   23 | MCA    | 2024 |    85 |
+|      5 | Aathira   |   24 | MCA    | 2024 |    83 |
++--------+-----------+------+--------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE students_data;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT*FROM students_data;
+Empty set (0.01 sec)
+
+mysql> DESC students_data;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int(10)     | YES  |     | NULL    |       |
+| course | varchar(50) | YES  |     | NULL    |       |
+| year   | int(11)     | YES  |     | NULL    |       |
+| marks  | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> DROP TABLE students_data;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC students_data;
+ERROR 1146 (42S02): Table 'aishwarya.students_data' doesn't exist
+

@@ -1,0 +1,119 @@
+mysql> create database ash;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use ash;
+Database changed
+
+mysql> create table employees(emp_id int primary key, emp_name varchar(30), emp_age int, city varchar(40), income int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table employees(emp_id int primary key, emp_name varchar(30), emp_age int, city varchar(40), income int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into employees values(101, 'Peter', 32, 'New York', 200000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(102, 'Mark', 32, 'California', 300000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(103, 'Donald', 40, 'Arizona', 1000000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(104, 'Obama', 35, 'Fllorida', 5000000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(105, 'Linklon', 32, 'Georgia',250000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(106, 'Kane', 45, 'Alaska',450000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(107, 'Adam', 35, 'California',5000000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(108, 'Macculam', 40, 'Florida' ,350000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(109, 'Brayan', 32, 'Alaska' ,400000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(110, 'Stephen', 40, 'Arizona' ,600000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(111, 'Alexander', 45, 'California' ,70000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from employees;
++--------+-----------+---------+------------+---------+
+| emp_id | emp_name  | emp_age | city       | income  |
++--------+-----------+---------+------------+---------+
+|    101 | Peter     |      32 | New York   |  200000 |
+|    102 | Mark      |      32 | California |  300000 |
+|    103 | Donald    |      40 | Arizona    | 1000000 |
+|    104 | Obama     |      35 | Fllorida   | 5000000 |
+|    105 | Linklon   |      32 | Georgia    |  250000 |
+|    106 | Kane      |      45 | Alaska     |  450000 |
+|    107 | Adam      |      35 | California | 5000000 |
+|    108 | Macculam  |      40 | Florida    |  350000 |
+|    109 | Brayan    |      32 | Alaska     |  400000 |
+|    110 | Stephen   |      40 | Arizona    |  600000 |
+|    111 | Alexander |      45 | California |   70000 |
++--------+-----------+---------+------------+---------+
+11 rows in set (0.00 sec)
+
+
+(i) Find employee detail whose id matches in a subquery:
+
+mysql> select emp_name, city, income from employees where emp_id in (select emp_id from employees);
++-----------+------------+---------+
+| emp_name  | city       | income  |
++-----------+------------+---------+
+| Peter     | New York   |  200000 |
+| Mark      | California |  300000 |
+| Donald    | Arizona    | 1000000 |
+| Obama     | Fllorida   | 5000000 |
+| Linklon   | Georgia    |  250000 |
+| Kane      | Alaska     |  450000 |
+| Adam      | California | 5000000 |
+| Macculam  | Florida    |  350000 |
+| Brayan    | Alaska     |  400000 |
+| Stephen   | Arizona    |  600000 |
+| Alexander | California |   70000 |
++-----------+------------+---------+
+11 rows in set (0.00 sec)
+
+
+(ii) Find employee detail whose income is more than 350000 with the help of
+subquery:
+
+mysql> select*from employees where emp_id in (select emp_id from employees where income >350000);
++--------+----------+---------+------------+---------+
+| emp_id | emp_name | emp_age | city       | income  |
++--------+----------+---------+------------+---------+
+|    103 | Donald   |      40 | Arizona    | 1000000 |
+|    104 | Obama    |      35 | Fllorida   | 5000000 |
+|    106 | Kane     |      45 | Alaska     |  450000 |
+|    107 | Adam     |      35 | California | 5000000 |
+|    109 | Brayan   |      32 | Alaska     |  400000 |
+|    110 | Stephen  |      40 | Arizona    |  600000 |
++--------+----------+---------+------------+---------+
+6 rows in set (0.00 sec)
+
+
+(iii) Find employee details with maximum income using a subquery.
+
+
+mysql> select emp_name, city, income from employees where income = (select max(income) from employees);
++----------+------------+---------+
+| emp_name | city       | income  |
++----------+------------+---------+
+| Obama    | Fllorida   | 5000000 |
+| Adam     | California | 5000000 |
++----------+------------+---------+
+2 rows in set (0.01 sec)
+
+
+
+
+
+

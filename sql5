@@ -1,0 +1,162 @@
+mysql> create database employee;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use employee;
+Database changed
+
+mysql> create table employeeinfo(employee_id int primary key, name varchar(50), gender varchar(20), department varchar(50), education varchar(50), month_of_joining varchar(50),salary int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into employeeinfo values(1001,'Ajay','M','Engineering', 'Doctorate', 'January', 25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1002,'Babloo','M','Engineering', 'UG', 'February', 23);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1002,'Chhavi','F','HR', 'PG', 'March', 15);ERROR 1062 (23000): Duplicate entry '1002' for key 'PRIMARY'
+mysql> insert into employeeinfo values(1003,'Chhavi','F','HR', 'PG', 'March', 15);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employeeinfo values(1004,'Dheeraj','M','HR', 'UG', 'January', 12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1005,'Evina','F','Marketing', 'UG', 'March', 16);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1006,'Fredy','M','Sales', 'UG', 'December', 10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1007,'Garima','F','Sales', 'PG', 'March', 10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1008,'Hans','M','Admin', 'PG', 'November', 6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employeeinfo values(1009,'Ivanka','F','Admin', 'Intermediate', 'April', 7
+);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employeeinfo values(1010,'Jai','M','Peon', 'High School', 'December', 4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from employeeinfo;
++-------------+---------+--------+-------------+--------------+------------------+--------+
+| employee_id | name    | gender | department  | education    | month_of_joining | salary |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+|        1001 | Ajay    | M      | Engineering | Doctorate    | January          |     25 |
+|        1002 | Babloo  | M      | Engineering | UG           | February         |     23 |
+|        1003 | Chhavi  | F      | HR          | PG           | March            |     15 |
+|        1004 | Dheeraj | M      | HR          | UG           | January          |     12 |
+|        1005 | Evina   | F      | Marketing   | UG           | March            |     16 |
+|        1006 | Fredy   | M      | Sales       | UG           | December         |     10 |
+|        1007 | Garima  | F      | Sales       | PG           | March            |     10 |
+|        1008 | Hans    | M      | Admin       | PG           | November         |      6 |
+|        1009 | Ivanka  | F      | Admin       | Intermediate | April            |      7 |
+|        1010 | Jai     | M      | Peon        | High School  | December         |      4 |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+10 rows in set (0.00 sec)
+
+(i): Calculate the sum of salaries of each department.
+
+mysql> select department, sum(salary) as sum_salary from employeeinfo group by department;
++-------------+------------+
+| department  | sum_salary |
++-------------+------------+
+| Admin       |         13 |
+| Engineering |         48 |
+| HR          |         27 |
+| Marketing   |         16 |
+| Peon        |          4 |
+| Sales       |         20 |
++-------------+------------+
+6 rows in set (0.00 sec)
+
+(ii): Find the departments in which the SUM of the salaries is greater than or equal to
+20 lacs
+
+mysql> select department, sum(salary) as sum_salary from employeeinfo group by department having sum(salary)>=20;
++-------------+------------+
+| department  | sum_salary |
++-------------+------------+
+| Engineering |         48 |
+| HR          |         27 |
+| Sales       |         20 |
++-------------+------------+
+3 rows in set (0.00 sec)
+
+(iii) Display distinct department of Employee.
+
+mysql> select distinct department from employeeinfo;
++-------------+
+| department  |
++-------------+
+| Engineering |
+| HR          |
+| Marketing   |
+| Sales       |
+| Admin       |
+| Peon        |
++-------------+
+6 rows in set (0.00 sec)
+
+
+(iv) Display total number of Salary of Employees.
+
+mysql> select count(salary) from employeeinfo;
++---------------+
+| count(salary) |
++---------------+
+|            10 |
++---------------+
+1 row in set (0.00 sec)
+
+
+(v) Display details of Employees from Employee tables in which Department of the employee is Engineering and Education is Doctorial.
+
+mysql> select * from employeeinfo where department='engineering' and education='doctorate';
++-------------+------+--------+-------------+-----------+------------------+--------+
+| employee_id | name | gender | department  | education | month_of_joining | salary |
++-------------+------+--------+-------------+-----------+------------------+--------+
+|        1001 | Ajay | M      | Engineering | Doctorate | January          |     25 |
++-------------+------+--------+-------------+-----------+------------------+--------+
+1 row in set (0.00 sec)
+
+
+(vi) Display details of Employees from Employee tables in which Department of the employee is Engineering or Education is Doctorial. 
+
+mysql> select * from employeeinfo where department='engineering' or  education='doctorate';
++-------------+--------+--------+-------------+-----------+------------------+--------+
+| employee_id | name   | gender | department  | education | month_of_joining | salary |
++-------------+--------+--------+-------------+-----------+------------------+--------+
+|        1001 | Ajay   | M      | Engineering | Doctorate | January          |     25 |
+|        1002 | Babloo | M      | Engineering | UG        | February         |     23 |
++-------------+--------+--------+-------------+-----------+------------------+--------+
+2 rows in set (0.00 sec)
+
+
+(vii) Rename the columns "Name" and "Education" to "First_Name" and "Qualification", respectively.
+
+mysql> select name as first_name, education as qualification from employeeinfo;
++------------+---------------+
+| first_name | qualification |
++------------+---------------+
+| Ajay       | Doctorate     |
+| Babloo     | UG            |
+| Chhavi     | PG            |
+| Dheeraj    | UG            |
+| Evina      | UG            |
+| Fredy      | UG            |
+| Garima     | PG            |
+| Hans       | PG            |
+| Ivanka     | Intermediate  |
+| Jai        | High School   |
++------------+---------------+
+10 rows in set (0.00 sec)
+
+
+(viii)List records of Employees whose names start with “A”.
+
+
+
+
+
