@@ -1,12 +1,6 @@
 13. Write a PL/SQL procedure to find maximum of three values.
 
 
-mysql> use ash;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
-Database changed
-
 mysql> delimiter //
 mysql> create procedure maximum(in a int, in bv int, in c int)
     -> begin
