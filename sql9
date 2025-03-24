@@ -1,0 +1,31 @@
+Write a PL/SQL procedure to display all fields from a table.
+
+
+mysql> delimiter //
+mysql> create procedure display()
+    -> begin
+    -> select*from employeeinfo;
+    -> end
+    ->  //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delimiter ;
+mysql> call display();
++-------------+---------+--------+-------------+--------------+------------------+--------+
+| employee_id | name    | gender | department  | education    | month_of_joining | salary |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+|        1001 | Ajay    | M      | Engineering | Doctorate    | January          |     25 |
+|        1002 | Babloo  | M      | Engineering | UG           | February         |     23 |
+|        1003 | Chhavi  | F      | HR          | PG           | March            |     15 |
+|        1004 | Dheeraj | M      | HR          | UG           | January          |     12 |
+|        1005 | Evina   | F      | Marketing   | UG           | March            |     16 |
+|        1006 | Fredy   | M      | Sales       | UG           | December         |     10 |
+|        1007 | Garima  | F      | Sales       | PG           | March            |     10 |
+|        1008 | Hans    | M      | Admin       | PG           | November         |      6 |
+|        1009 | Ivanka  | F      | Admin       | Intermediate | April            |      7 |
+|        1010 | Jai     | M      | Peon        | High School  | December         |      4 |
++-------------+---------+--------+-------------+--------------+------------------+--------+
+10 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
