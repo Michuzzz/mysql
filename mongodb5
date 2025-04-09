@@ -1,0 +1,206 @@
+> use Employee
+switched to db Employee
+> db.EMPL.insertMany([
+...   { "Empno": 1, "Name": "John Doe", "Salary": 60000, "Role": "Manager" },
+...   { "Empno": 2, "Name": "Alice Smith", "Salary": 50000, "Role": "Developer" }
+... ])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("67f6066650b9820437f0ef35"),
+		ObjectId("67f6066650b9820437f0ef36")
+	]
+}
+> db.EMPL.find().pretty()
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef11"),
+	"Empno" : 1,
+	"Name" : "John Doe",
+	"Salary" : 50000,
+	"Role" : "Software Engineer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef12"),
+	"Empno" : 2,
+	"Name" : "Jane Smith",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef13"),
+	"Empno" : 3,
+	"Name" : "Sam Brown",
+	"Salary" : 45000,
+	"Role" : "Analyst"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef14"),
+	"Empno" : 4,
+	"Name" : "Chris Green",
+	"Salary" : 75000,
+	"Role" : "HR"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef15"),
+	"Empno" : 5,
+	"Name" : "Sarah White",
+	"Salary" : 60000,
+	"Role" : "Designer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef16"),
+	"Empno" : 6,
+	"Name" : "Tom Black",
+	"Salary" : 65000,
+	"Role" : "Developer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef17"),
+	"Empno" : 7,
+	"Name" : "Nina Blue",
+	"Salary" : 70000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef18"),
+	"Empno" : 8,
+	"Name" : "James Pink",
+	"Salary" : 48000,
+	"Role" : "Sales"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef19"),
+	"Empno" : 9,
+	"Name" : "Ellen Yellow",
+	"Salary" : 90000,
+	"Role" : "CTO"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef1a"),
+	"Empno" : 10,
+	"Name" : "David Silver",
+	"Salary" : 50000,
+	"Role" : "Software Engineer"
+}
+{
+	"_id" : ObjectId("67f6066650b9820437f0ef35"),
+	"Empno" : 1,
+	"Name" : "John Doe",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f6066650b9820437f0ef36"),
+	"Empno" : 2,
+	"Name" : "Alice Smith",
+	"Salary" : 50000,
+	"Role" : "Developer"
+}
+> db.createUser({
+...   user: "adminUser",
+...   pwd: "securePassword",
+...   roles: [
+...     { role: "readWrite", db: "Employee" }
+...   ]
+... })
+Successfully added user: {
+	"user" : "adminUser",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "Employee"
+		}
+	]
+}
+> db.createUser({
+...   user: "readOnlyUser",
+...   pwd: "readOnlyPassword",  
+...   roles: [
+...     { role: "read", db: "Employee" }
+...   ]
+... })
+Successfully added user: {
+	"user" : "readOnlyUser",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "Employee"
+		}
+	]
+}
+> db.createUser({
+...   user: "adminUserFull",
+...   pwd: "fullAccessPassword",  
+...   roles: [
+...     { role: "dbAdmin", db: "Employee" },  
+...     { role: "readWrite", db: "Employee" } 
+...   ]
+... })
+Successfully added user: {
+	"user" : "adminUserFull",
+	"roles" : [
+		{
+			"role" : "dbAdmin",
+			"db" : "Employee"
+		},
+		{
+			"role" : "readWrite",
+			"db" : "Employee"
+		}
+	]
+}
+> show users
+{
+	"_id" : "Employee.adminUser",
+	"userId" : UUID("f1b9b778-a339-47fc-91f7-bbde00e9247f"),
+	"user" : "adminUser",
+	"db" : "Employee",
+	"roles" : [
+		{
+			"role" : "readWrite",
+			"db" : "Employee"
+		}
+	],
+	"mechanisms" : [
+		"SCRAM-SHA-1",
+		"SCRAM-SHA-256"
+	]
+}
+{
+	"_id" : "Employee.adminUserFull",
+	"userId" : UUID("5659756f-76f0-4c16-a393-702b4f24b028"),
+	"user" : "adminUserFull",
+	"db" : "Employee",
+	"roles" : [
+		{
+			"role" : "dbAdmin",
+			"db" : "Employee"
+		},
+		{
+			"role" : "readWrite",
+			"db" : "Employee"
+		}
+	],
+	"mechanisms" : [
+		"SCRAM-SHA-1",
+		"SCRAM-SHA-256"
+	]
+}
+{
+	"_id" : "Employee.readOnlyUser",
+	"userId" : UUID("5834d0b2-9385-4627-a953-0bc6be27768e"),
+	"user" : "readOnlyUser",
+	"db" : "Employee",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "Employee"
+		}
+	],
+	"mechanisms" : [
+		"SCRAM-SHA-1",
+		"SCRAM-SHA-256"
+	]
+}
+> 
+

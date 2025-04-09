@@ -1,0 +1,71 @@
+> use students;
+switched to db students
+> db.students.insertMany([
+...   { name: "Tony", age: 17, id: 1, sec: "A", subject: ["Physics", "Maths"] },
+
+...   { name: "John", age: 16, id: 2, sec: "B", subject: ["Chemistry", "Biology"] },
+...   { name: "Alice", age: 18, id: 3, sec: "A", subject: ["Maths", "Physics"] },
+...   { name: "Bob", age: 17, id: 4, sec: "C", subject: ["History", "English"] },
+...   { name: "Emma", age: 16, id: 5, sec: "B", subject: ["Maths", "Chemistry"] },
+...   { name: "Mia", age: 18, id: 6, sec: "C", subject: ["Physics", "Computer Science"] },
+...   { name: "Zoe", age: 17, id: 7, sec: "A", subject: ["Maths", "English"] }
+... ]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("67f6017d50b9820437f0ef27"),
+		ObjectId("67f6017d50b9820437f0ef28"),
+		ObjectId("67f6017d50b9820437f0ef29"),
+		ObjectId("67f6017d50b9820437f0ef2a"),
+		ObjectId("67f6017d50b9820437f0ef2b"),
+		ObjectId("67f6017d50b9820437f0ef2c"),
+		ObjectId("67f6017d50b9820437f0ef2d")
+	]
+}
+>
+> db.students.aggregate([
+...   { $match: { sec: "A" } },  
+...   { $count: "totalStudents" }  
+... ]);
+{ "totalStudents" : 3 }
+> db.students.aggregate([
+...   { $group: { 
+...       _id: "$sec",               
+...       totalStudents: { $sum: 1 },  
+...       maxAge: { $max: "$age" }     
+...   } }
+... ]);
+{ "_id" : "C", "totalStudents" : 2, "maxAge" : 18 }
+{ "_id" : "B", "totalStudents" : 2, "maxAge" : 16 }
+{ "_id" : "A", "totalStudents" : 3, "maxAge" : 18 }
+> db.students.aggregate([
+...   { $match: { age: { $gt: 30 } } }  
+... ]);
+[]
+> db.students.aggregate([
+...   { $sort: { age: 1 } }  
+... ]);
+{ "_id" : ObjectId("67f6017d50b9820437f0ef28"), "name" : "John", "age" : 16, "id" : 2, "sec" : "B", "subject" : [ "Chemistry", "Biology" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2b"), "name" : "Emma", "age" : 16, "id" : 5, "sec" : "B", "subject" : [ "Maths", "Chemistry" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef27"), "name" : "Tony", "age" : 17, "id" : 1, "sec" : "A", "subject" : [ "Physics", "Maths" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2a"), "name" : "Bob", "age" : 17, "id" : 4, "sec" : "C", "subject" : [ "History", "English" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2d"), "name" : "Zoe", "age" : 17, "id" : 7, "sec" : "A", "subject" : [ "Maths", "English" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef29"), "name" : "Alice", "age" : 18, "id" : 3, "sec" : "A", "subject" : [ "Maths", "Physics" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2c"), "name" : "Mia", "age" : 18, "id" : 6, "sec" : "C", "subject" : [ "Physics", "Computer Science" ] }
+> db.students.aggregate([
+...   { $sort: { age: -1 } }  
+... ]);
+{ "_id" : ObjectId("67f6017d50b9820437f0ef29"), "name" : "Alice", "age" : 18, "id" : 3, "sec" : "A", "subject" : [ "Maths", "Physics" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2c"), "name" : "Mia", "age" : 18, "id" : 6, "sec" : "C", "subject" : [ "Physics", "Computer Science" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef27"), "name" : "Tony", "age" : 17, "id" : 1, "sec" : "A", "subject" : [ "Physics", "Maths" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2a"), "name" : "Bob", "age" : 17, "id" : 4, "sec" : "C", "subject" : [ "History", "English" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2d"), "name" : "Zoe", "age" : 17, "id" : 7, "sec" : "A", "subject" : [ "Maths", "English" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef28"), "name" : "John", "age" : 16, "id" : 2, "sec" : "B", "subject" : [ "Chemistry", "Biology" ] }
+{ "_id" : ObjectId("67f6017d50b9820437f0ef2b"), "name" : "Emma", "age" : 16, "id" : 5, "sec" : "B", "subject" : [ "Maths", "Chemistry" ] }
+> db.students.count();
+7
+> db.students.distinct("age");
+[ 16, 17, 18 ]
+
+
+

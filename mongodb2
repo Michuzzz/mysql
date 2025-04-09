@@ -1,0 +1,132 @@
+student@student-Veriton-M200-H310:~$ mongo
+MongoDB shell version v4.4.29
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("1e6974de-671c-4222-a92a-32e4af63b73d") }
+MongoDB server version: 4.4.29
+---
+The server generated these startup warnings when booting: 
+        2025-04-09T10:22:04.418+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2025-04-09T10:22:05.207+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+> use Employee;
+switched to db Employee
+> db.EMPL.insertMany([
+...   { Empno: 1, Name: "John Doe", Salary: 50000, Role: "Software Engineer" },
+...   { Empno: 2, Name: "Jane Smith", Salary: 60000, Role: "Manager" },
+...   { Empno: 3, Name: "Sam Brown", Salary: 45000, Role: "Analyst" },
+...   { Empno: 4, Name: "Chris Green", Salary: 75000, Role: "HR" },
+...   { Empno: 5, Name: "Sarah White", Salary: 55000, Role: "Designer" },
+...   { Empno: 6, Name: "Tom Black", Salary: 65000, Role: "Developer" },
+...   { Empno: 7, Name: "Nina Blue", Salary: 70000, Role: "Manager" },
+...   { Empno: 8, Name: "James Pink", Salary: 48000, Role: "Sales" },
+...   { Empno: 9, Name: "Ellen Yellow", Salary: 90000, Role: "CTO" },
+...   { Empno: 10, Name: "David Silver", Salary: 50000, Role: "Software Engineer" }]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("67f5fecd50b9820437f0ef11"),
+		ObjectId("67f5fecd50b9820437f0ef12"),
+		ObjectId("67f5fecd50b9820437f0ef13"),
+		ObjectId("67f5fecd50b9820437f0ef14"),
+		ObjectId("67f5fecd50b9820437f0ef15"),
+		ObjectId("67f5fecd50b9820437f0ef16"),
+		ObjectId("67f5fecd50b9820437f0ef17"),
+		ObjectId("67f5fecd50b9820437f0ef18"),
+		ObjectId("67f5fecd50b9820437f0ef19"),
+		ObjectId("67f5fecd50b9820437f0ef1a")
+	]
+}
+> db.EMPL.find().pretty();
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef11"),
+	"Empno" : 1,
+	"Name" : "John Doe",
+	"Salary" : 50000,
+	"Role" : "Software Engineer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef12"),
+	"Empno" : 2,
+	"Name" : "Jane Smith",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef13"),
+	"Empno" : 3,
+	"Name" : "Sam Brown",
+	"Salary" : 45000,
+	"Role" : "Analyst"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef14"),
+	"Empno" : 4,
+	"Name" : "Chris Green",
+	"Salary" : 75000,
+	"Role" : "HR"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef15"),
+	"Empno" : 5,
+	"Name" : "Sarah White",
+	"Salary" : 55000,
+	"Role" : "Designer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef16"),
+	"Empno" : 6,
+	"Name" : "Tom Black",
+	"Salary" : 65000,
+	"Role" : "Developer"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef17"),
+	"Empno" : 7,
+	"Name" : "Nina Blue",
+	"Salary" : 70000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef18"),
+	"Empno" : 8,
+	"Name" : "James Pink",
+	"Salary" : 48000,
+	"Role" : "Sales"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef19"),
+	"Empno" : 9,
+	"Name" : "Ellen Yellow",
+	"Salary" : 90000,
+	"Role" : "CTO"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef1a"),
+	"Empno" : 10,
+	"Name" : "David Silver",
+	"Salary" : 50000,
+	"Role" : "Software Engineer"
+}
+> db.EMPL.find({ Role: "Manager" }).pretty();
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef12"),
+	"Empno" : 2,
+	"Name" : "Jane Smith",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("67f5fecd50b9820437f0ef17"),
+	"Empno" : 7,
+	"Name" : "Nina Blue",
+	"Salary" : 70000,
+	"Role" : "Manager"
+}
+> db.EMPL.updateOne(
+...   { Empno: 5 }, // Filter based on Empno
+...   { $set: { Salary: 60000 } } // Update the salary to 60000
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> 
+
+

@@ -1,0 +1,94 @@
+> use ProductCatalog; 
+switched to db ProductCatalog
+> db.Products.insertMany([
+...   { ProductID: 1, ProductName: "Laptop", Price: 800, Quantity: 50 },
+...   { ProductID: 2, ProductName: "Smartphone", Price: 500, Quantity: 100 },
+...   { ProductID: 3, ProductName: "Tablet", Price: 300, Quantity: 30 },
+...   { ProductID: 4, ProductName: "Headphones", Price: 100, Quantity: 150 },
+...   { ProductID: 5, ProductName: "Smartwatch", Price: 200, Quantity: 75 }
+... ]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("67f6000d50b9820437f0ef1b"),
+		ObjectId("67f6000d50b9820437f0ef1c"),
+		ObjectId("67f6000d50b9820437f0ef1d"),
+		ObjectId("67f6000d50b9820437f0ef1e"),
+		ObjectId("67f6000d50b9820437f0ef1f")
+	]
+}
+> db.Products.find().pretty();
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1b"),
+	"ProductID" : 1,
+	"ProductName" : "Laptop",
+	"Price" : 800,
+	"Quantity" : 50
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1c"),
+	"ProductID" : 2,
+	"ProductName" : "Smartphone",
+	"Price" : 500,
+	"Quantity" : 100
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1d"),
+	"ProductID" : 3,
+	"ProductName" : "Tablet",
+	"Price" : 300,
+	"Quantity" : 30
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1e"),
+	"ProductID" : 4,
+	"ProductName" : "Headphones",
+	"Price" : 100,
+	"Quantity" : 150
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1f"),
+	"ProductID" : 5,
+	"ProductName" : "Smartwatch",
+	"Price" : 200,
+	"Quantity" : 75
+}
+> db.Products.updateOne(
+...   { ProductName: "Laptop" }, 
+...   { $inc: { Quantity: 10 } } 
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Products.deleteOne({ ProductName: "Smartphone" });
+{ "acknowledged" : true, "deletedCount" : 1 }
+> 
+> db.Products.find().pretty();
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1b"),
+	"ProductID" : 1,
+	"ProductName" : "Laptop",
+	"Price" : 800,
+	"Quantity" : 60
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1d"),
+	"ProductID" : 3,
+	"ProductName" : "Tablet",
+	"Price" : 300,
+	"Quantity" : 30
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1e"),
+	"ProductID" : 4,
+	"ProductName" : "Headphones",
+	"Price" : 100,
+	"Quantity" : 150
+}
+{
+	"_id" : ObjectId("67f6000d50b9820437f0ef1f"),
+	"ProductID" : 5,
+	"ProductName" : "Smartwatch",
+	"Price" : 200,
+	"Quantity" : 75
+}
+> 
+
