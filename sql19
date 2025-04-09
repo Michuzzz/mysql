@@ -22,7 +22,6 @@ mysql> set @name_list="";
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> call list_name(@name_list);
-ERROR 1305 (42000): PROCEDURE red.list_name does not exist
 mysql> SHOW PROCEDURE STATUS WHERE Db = 'red' AND Name = 'list_name';
 Empty set (0.01 sec)
 
