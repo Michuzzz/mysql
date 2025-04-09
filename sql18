@@ -1,0 +1,84 @@
+mysql> DELIMITER //
+mysql> 
+mysql> CREATE PROCEDURE calculate_av_salary()
+    -> BEGIN
+    ->     DECLARE cur_salary INT;
+    ->     DECLARE total_salary INT DEFAULT 0;
+    ->     DECLARE num_rows INT DEFAULT 0;
+    ->     DECLARE avg_salary INT DEFAULT 0;
+    ->     DECLARE done BOOLEAN DEFAULT FALSE;
+    ->     DECLARE salary_cursor CURSOR FOR SELECT salary FROM employees;
+    ->     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    ->     
+    ->     OPEN salary_cursor;
+    ->     
+    ->     fetch_loop: LOOP
+    ->         FETCH salary_cursor INTO cur_salary;
+    ->         IF done THEN
+    ->             LEAVE fetch_loop;
+    ->         END IF;
+    -> 
+    ->         IF cur_salary IS NOT NULL THEN
+    ->             SET total_salary = total_salary + cur_salary;
+    ->             SET num_rows = num_rows + 1;
+    ->         END IF;
+    ->     END LOOP fetch_loop;
+    -> 
+    ->     CLOSE salary_cursor;
+    -> 
+    ->     IF num_rows > 0 THEN
+    ->         SET avg_salary = total_salary / num_rows;
+    ->     END IF;
+    -> 
+    ->     SELECT avg_salary;
+    -> END //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> select * from employees;
+ERROR 1146 (42S02): Table 'red.employees' doesn't exist
+mysql> CREATE TABLE employees (
+    ->     id INT NOT NULL AUTO_INCREMENT,
+    ->     name VARCHAR(100),
+    ->     salary INT,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO employees (name, salary)
+    -> VALUES 
+    ->     ('John Doe', 5000),
+    ->     ('Jane Smith', 6000),
+    ->     ('Alice Johnson', 7000),
+    ->     ('Bob Brown', 5500);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> 
+mysql> DELIMITER ;
+mysql> select * from employees;
++----+---------------+--------+
+| id | name          | salary |
++----+---------------+--------+
+|  1 | John Doe      |   5000 |
+|  2 | Jane Smith    |   6000 |
+|  3 | Alice Johnson |   7000 |
+|  4 | Bob Brown     |   5500 |
++----+---------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> CALL calculate_av_salary();
++------------+
+| avg_salary |
++------------+
+|       5875 |
++------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+

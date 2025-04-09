@@ -1,0 +1,93 @@
+
+student@student-Veriton-M200-H310:~$ sudo mysql 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.41-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use red
+Database changed
+mysql> create table students(id int NOT NULL AUTO_INCREMENT,
+    -> -> name varchar(45) NOT NULL,
+    -> -> class int NOT NULL,
+    -> -> email_id varchar(65) NOT NULL,
+    -> -> PRIMARY KEY (id)
+    -> -> );
+mysql> create table students(id int NOT NULL AUTO_INCREMENT,  name varchar(45) NOT NULL,  class int NOT NULL,  email_id varchar(65) NOT NULL,  PRIMARY KEY (id)
+ );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> INSERT INTO students(name, class, email_id) VALUES ('Stephen', 6, 'stephen@gmail.com'), ('Bob', 7, 'bob@gmail.com'), ('Steven', 8, 'steven@ gmail.com'),
+ ('Alexandar', 7, 'alexandar@ gmail.com');
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE student_log ( user VARCHAR(45) NOT NULL,  descriptions VARCHAR(65) NOT NULL  );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> select * from students;
++----+-----------+-------+----------------------+
+| id | name      | class | email_id             |
++----+-----------+-------+----------------------+
+|  1 | Stephen   |     6 | stephen@gmail.com    |
+|  2 | Bob       |     7 | bob@gmail.com        |
+|  3 | Steven    |     8 | steven@ gmail.com    |
+|  4 | Alexandar |     7 | alexandar@ gmail.com |
++----+-----------+-------+----------------------+
+4 rows in set (0.00 sec)
+
+
+mysql> CREATE TRIGGER after_update_stdnts
+    -> AFTER UPDATE ON students
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO student_log (user, descriptions)
+    ->     VALUES (USER(), CONCAT('Update Student Record ', OLD.name, ' Previous Class: ', OLD.class, ' Present Class: ', NEW.class));
+    -> END //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> select * from student_log;
+Empty set (0.00 sec)
+
+
+mysql> ALTER TABLE student_log MODIFY descriptions VARCHAR(255);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update students set class=class+1;
+Query OK, 4 rows affected (0.02 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from student_log;
++----------------+--------------------------------------------------------------------+
+| user           | descriptions                                                       |
++----------------+--------------------------------------------------------------------+
+| root@localhost | Update Student Record Stephen Previous Class: 6 Present Class: 7   |
+| root@localhost | Update Student Record Bob Previous Class: 7 Present Class: 8       |
+| root@localhost | Update Student Record Steven Previous Class: 8 Present Class: 9    |
+| root@localhost | Update Student Record Alexandar Previous Class: 7 Present Class: 8 |
++----------------+--------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students;
++----+-----------+-------+----------------------+
+| id | name      | class | email_id             |
++----+-----------+-------+----------------------+
+|  1 | Stephen   |     7 | stephen@gmail.com    |
+|  2 | Bob       |     8 | bob@gmail.com        |
+|  3 | Steven    |     9 | steven@ gmail.com    |
+|  4 | Alexandar |     8 | alexandar@ gmail.com |
++----+-----------+-------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
