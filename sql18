@@ -34,10 +34,6 @@ mysql> CREATE PROCEDURE calculate_av_salary()
     -> END //
 Query OK, 0 rows affected (0.02 sec)
 
-mysql> 
-mysql> DELIMITER ;
-mysql> select * from employees;
-ERROR 1146 (42S02): Table 'red.employees' doesn't exist
 mysql> CREATE TABLE employees (
     ->     id INT NOT NULL AUTO_INCREMENT,
     ->     name VARCHAR(100),
