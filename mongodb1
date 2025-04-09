@@ -1,0 +1,36 @@
+mongo
+MongoDB shell version: 2.6.10
+connecting to: test
+> show dbs;
+admin  (empty)
+local  0.078GB
+> use test1
+switched to db test1
+> db.createCollection("student")
+{ "ok" : 1 }
+> db.student.insert({rollno:101,name:"Alex",Branch:"MCA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({rollno:102,name:"Maya",Branch:"MBA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({rollno:101,name:"Niya",Branch:"BCA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.find().pretty()
+{
+	"_id" : ObjectId("67f35d31cc2a90dce553d1bc"),
+	"rollno" : 101,
+	"name" : "Alex",
+	"Branch" : "MCA"
+}
+{
+	"_id" : ObjectId("67f35d3acc2a90dce553d1bd"),
+	"rollno" : 102,
+	"name" : "Maya",
+	"Branch" : "MBA"
+}
+{
+	"_id" : ObjectId("67f35d43cc2a90dce553d1be"),
+	"rollno" : 101,
+	"name" : "Niya",
+	"Branch" : "BCA"
+}
+
