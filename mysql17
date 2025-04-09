@@ -15,11 +15,11 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> use red
 Database changed
 mysql> create table students(id int NOT NULL AUTO_INCREMENT,
-    -> -> name varchar(45) NOT NULL,
-    -> -> class int NOT NULL,
-    -> -> email_id varchar(65) NOT NULL,
-    -> -> PRIMARY KEY (id)
-    -> -> );
+    -> name varchar(45) NOT NULL,
+    ->  class int NOT NULL,
+    ->  email_id varchar(65) NOT NULL,
+    ->  PRIMARY KEY (id)
+    ->  );
 mysql> create table students(id int NOT NULL AUTO_INCREMENT,  name varchar(45) NOT NULL,  class int NOT NULL,  email_id varchar(65) NOT NULL,  PRIMARY KEY (id)
  );
 Query OK, 0 rows affected (0.11 sec)
